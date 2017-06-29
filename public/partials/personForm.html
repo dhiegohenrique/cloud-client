@@ -1,0 +1,62 @@
+<div class="container form" click-outside="closeThis()" outside-if-not="outside-off">
+    <div class="row">
+        <div class="col-xs-12 rounded shadow-3" style="background: url('resources/bg8.png')">
+            <h2 ng-show="!hasPerson">Nova pessoa</h2>
+
+            <form name="personForm" novalidate ng-submit="newPerson(personForm.$valid)">
+                <label>Nome:</label> 
+                <input type="text"
+                    class="form-control" placeholder="Insira o nome"
+                    ng-model="person.name" required name="name" id="name"
+                    ng-class="{ 'has-error' : personForm.name.$invalid && submitted}">
+                
+                <div class="alert alert-danger" ng-show="personForm.name.$invalid && submitted">
+                    <span>Insira o nome.</span>
+                </div>
+
+                <label>Username:</label> 
+                <input type="text"
+                    class="form-control" placeholder="Insira o username"
+                    ng-model="person.username" required name="username" id="username"
+                    ng-class="{ 'has-error' : personForm.username.$invalid && submitted}"
+                    ng-disabled="hasPerson">
+                
+                <div class="alert alert-danger" ng-show="personForm.username.$invalid && submitted">
+                    <span>Insira o username.</span>
+                </div>
+
+                <label>Senha:</label> 
+                <input type="password"
+                    class="form-control" placeholder="Insira a senha"
+                    ng-model="person.password" required name="password" id="password"
+                    ng-class="{ 'has-error' : personForm.password.$invalid && submitted}">
+                
+                <div class="alert alert-danger" ng-show="personForm.password.$invalid && submitted">
+                    <span>Insira a senha.</span>
+                </div>
+
+                <div class="alert {{classMessage}}" ng-show="message">
+                    <span>{{message}}</span>
+                </div>
+
+                <div class = "col-xs-12 text-right no-padding" ng-show="!hasPerson">
+                    <button type="button" class="btn btn-danger btn-space" ng-click="showConfirmCancel()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Cadastrar
+                    </button>
+                </div>
+
+                <div class = "col-xs-12 text-right no-padding" ng-show="hasPerson">
+                    <button type="button" class="btn btn-danger btn-space" ng-click="showConfirmLogoff()">
+                        Logoff
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

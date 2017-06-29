@@ -1,0 +1,110 @@
+<!doctype html>
+<html ng-app="cloudapi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud</title>
+    <meta name="viewport" content="width=device-width">
+    <!-- build:css -->
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/owfont-regular.min.css">
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/angular-confirm/dist/angular-confirm.min.css">
+    <!-- endbuild -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+</head>
+
+<body ng-controller="cloudApiController" class="body">
+    <div class="container">
+        <a href="/">
+            <div class="row jumbotron title shadow-5" style="background: url('resources/cloud.png')">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                </div>
+            </div>
+        </a>
+
+        <div class="row">
+            <div class="col-xs-12 no-padding form" ui-view>
+                <form name="loginForm" novalidate ng-submit="submit(loginForm.$valid)">
+                    <label>Username:</label> 
+                    <input type="text"
+                        class="form-control" placeholder="Insira o username"
+                        ng-model="login.username" required name="username" id="username"
+                        ng-class="{ 'has-error' : loginForm.username.$invalid && submitted}"
+                        ng-disabled="isTokenValid">
+                    
+                    <div class="alert alert-danger" ng-show="loginForm.username.$invalid && submitted">
+                        <span>Insira o username.</span>
+                    </div>
+
+                    <!--<div ng-show="isTokenValid">
+                    <label>Nome:</label> 
+                    <input type="text"
+                        class="form-control" placeholder="Insira o nome"
+                        ng-model="login.password" required name="password" id="password"
+                        ng-class="{ 'has-error' : loginForm.password.$invalid && submitted}">
+                    </div>-->
+
+                    <label>Senha:</label> 
+                    <input type="password"
+                        class="form-control" placeholder="Insira a senha"
+                        ng-model="login.password" required name="password" id="password"
+                        ng-class="{ 'has-error' : loginForm.password.$invalid && submitted}">
+                    
+                    <div class="alert alert-danger" ng-show="loginForm.password.$invalid && submitted">
+                        <span>Insira a senha.</span>
+                    </div>
+
+                    <div class="alert alert-danger" ng-show="errorMessage">
+                        <span>{{errorMessage}}</span>
+                    </div>
+
+                    <button type="submit" class="pull-right btn" ng-class="{'btn-primary' : !isTokenValid, 'btn-danger' : isTokenValid}">
+                        <i class="fa "
+                            ng-class="{ 'fa-sign-in': !isTokenValid, 'fa-sign-out' : isTokenValid} "></i>
+                        {{!isTokenValid ? "Login" : "Logoff"}}
+                    </button>
+                    <button type="button" class="btn btn-primary pull-right btn-space" ng-click="newPerson()" ng-show="!isTokenValid">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Cadastrar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br/><br/>
+
+    <!--<div ng-include="'partials/personForm.html'"></div>-->
+
+    <!--<ui-view></ui-view>-->
+
+    <!-- build:js -->
+    <script src="vendor/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="vendor/angular/angular.min.js"></script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="vendor/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="vendor/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="vendor/angular-confirm/dist/angular-confirm.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/controllers/cloudApiController.js"></script>
+    <script src="js/controllers/personController.js"></script>
+    <script src="js/controllers/errorMessageController.js"></script>
+    <script src="js/controllers/errorMessageController.js"></script>
+    <script src="js/services/userService.js"></script>
+    <script src="js/services/loadingService.js"></script>
+    <script src="js/services/loginService.js"></script>
+    <script src="js/services/modalService.js"></script>
+    <script src="js/services/personService.js"></script>
+    <script src="js/config/interceptorsConfig.js"></script>
+    <script src="js/config/interceptorsConfig.js"></script>
+    <script src="js/config/templatesConfig.js"></script>
+    <script src="js/interceptors/errorInterceptor.js"></script>
+    <script src="js/state/cloudApiState.js"></script>
+    <!-- endbuild -->
+</body>
+</html>
