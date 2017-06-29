@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+- 7.4.0
+notifications:
+  email: false
+env:
+  global:
+  - NODE_ENV: test
+before_install:
+- npm install -g bower@1.8.0
+- npm install -g gulp@3.9.1
+- bower install
+script:
+- gulp
+- cd dist
+deploy:
+  provider: heroku
+  api_key:
+    secure: mlP8sFp2hokBaUcksecdI5TzeCEeSfOeNzquJ//P21Aao9eZZmE3Oxpf9d08dTxsVEvt24jNkxLpHuzMIMFCLfyTJ+t0KKhfak7mtbYrxCWsXg5pYv2ENHF5jMPgbu/zeIDiMJGyZ+HV2UED+1ta9A7KpXqUR6hDvtsKwEdY/+WrTRPvFQ9nvNfw7RDbuQ4MsG2aAxT0gtdXWak9mf6nmHoR+TJF9+ekN0GUtuPgXGgMV0N2Xy81bIGTaeC2/DfWG9l/tw2Ce+3tPxqJXs+SeczXEE/HoBOqaXA6RQI+Pgh6j2d+X8nXHH42iVFEzXqdfUG4euupYH+C6GgJqTx7nVKb80al6xxfy3sniTT/33t249CkuCjmYhEG8sujm6XLtmJjLOlG8e5Y4NJNBkfOWrcXAMtvygzJpSqlLnL36uFxDfaDyxn3Hpr7dkDZ9IZFEWw2aFO0W1BfMwbbnlU2uY1/krPHiKF3hmrwVoiK0HffEbCgMVCK2ZvTn44lWMdYMWCAXtiCD4+SHv+A8TrY/ZtKk9g9wu61v24tFdRyzvvr92/iXkGbas6JPh3zfpoC2bwINpC0xYnN7MskMCfNAjoQiDf6F2jjfbgLS8GJORRSZ5Z/rwS70CoC5PbGKlvues7vRzqNYkH7DwjZxxqeWA/s64QYFHP2rk0Pd/e7rCI=
+  app: cloud-client
+  on:
+    repo: dhiegohenrique/cloud-client
