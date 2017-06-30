@@ -184,3 +184,11 @@ body.modal-open .modal .modal-dialog {
 	border-top-right-radius:4px;
 	border-bottom-left-radius:0;
 }
+
+div .btn.btn-primary {
+    width: 100px;
+}
+
+div .btn.btn-danger {
+    width: 100px;
+}

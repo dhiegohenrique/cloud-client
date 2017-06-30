@@ -8,6 +8,7 @@ function personController($scope, loadingService, modalService, $window, personS
     if (person) {
         $scope.person = person;
         $scope.hasPerson = true;
+        // $state.go("cloud");
     }
 
     var personMaster = angular.copy($scope.person);

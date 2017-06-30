@@ -1,0 +1,79 @@
+<div class="container form">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9 rounded shadow-3" style="background: url('resources/bg8.png')">
+            <h2>{{title}}</h2>
+
+            <form name="form" novalidate ng-submit="save(form.$valid)">
+                <label>Nome:</label> 
+                <input type="text"
+                    class="form-control" placeholder="Insira o nome"
+                    ng-model="cloud.name" required name="name" id="name"
+                    ng-class="{ 'has-error' : form.name.$invalid && submitted}"
+                    ng-blur="onBlur()"
+                    focus-if="!cloud.id">
+                
+                <div class="alert alert-danger" ng-show="form.name.$invalid && submitted">
+                    <span>Insira o nome.</span>
+                </div>
+
+                <label>Sistema operacional:</label> 
+                <input type="text"
+                    class="form-control" placeholder="Insira o sistema operacional"
+                    ng-model="cloud.operationalSystem" required name="operationalSystem" id="operationalSystem"
+                    ng-class="{ 'has-error' : form.operationalSystem.$invalid && submitted}"
+                    ng-blur="onBlur()">
+                
+                <div class="alert alert-danger" ng-show="form.operationalSystem.$invalid && submitted">
+                    <span>Insira o sistema operacional.</span>
+                </div>
+
+                <label>Capacidade (GB):</label> 
+                <input type="text"
+                    class="form-control" placeholder="Insira a capacidade"
+                    ng-model="cloud.capacity" required name="capacity" id="capacity"
+                    ng-class="{ 'has-error' : form.capacity.$invalid && submitted}"
+                    style="width: 20%"
+                    ui-number-mask="0" ui-hide-group-sep
+                    ng-blur="onBlur()"
+                    >
+                
+                <div class="alert alert-danger" ng-show="form.capacity.$invalid && submitted">
+                    <span>Insira a capacidade.</span>
+                </div>
+
+                <label>Status:</label> 
+                <div>
+                    <label class="radio-inline" style="padding-top: 0px"><input type="radio" name="active" ng-model="cloud.active" ng-value="true" ng-click="onBlur()">Ativa</label>
+                    <label class="radio-inline" style="padding-top: 0px"><input type="radio" name="active" ng-model="cloud.active" ng-value="false" ng-click="onBlur()" >Inativa</label>
+                </div>
+
+                <div ng-show="cloud.id">
+                    <label>Criada em:</label> 
+                    <input type="text"
+                        class="form-control"
+                        style="width: 20%"
+                        value="{{cloud.createDate | date:'dd/MM/yyyy HH:mm:ss'}}"
+                        disabled
+                    >
+
+                    <label>Última atualização:</label> 
+                    <input type="text"
+                        class="form-control"
+                        style="width: 20%"
+                        value="{{cloud.updateDate | date:'dd/MM/yyyy HH:mm:ss'}}"
+                        disabled
+                    >
+                </div>
+
+                <div class = "col-xs-12 text-right no-padding">
+                    <button type="button" class="btn btn-danger btn-space" ng-click="cancel()">
+                        Cancelar
+                    </button>
+                    <button class="btn btn-primary" type="submit">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -28,5 +28,39 @@ function cloudApiState($stateProvider, $urlRouterProvider) {
                     });
             }]
         }
+    })
+    .state("cloudlist", {
+        url: "/cloudlist",
+        parent: "person",
+        templateUrl: "./../partials/cloudList.html",
+        controller: "cloudListController",
+        params: {"cloud" : null},
+        resolve : {
+            clouds : ["cloudService", function(cloudService) {
+                return cloudService.getClouds()
+                    .then(function(result) {
+                        return result;
+                    });
+            }]
+        }
+    })
+    .state("cloud", {
+        url: "/cloud",
+        parent: "cloudlist",
+        templateUrl: "./../partials/cloudForm.html",
+        controller: "cloudController",
+        params: {"cloudId" : null},
+        resolve : {
+            cloud : ["cloudService", "$stateParams", function(cloudService, $stateParams) {
+                if (!$stateParams.cloudId) {
+                    return {"active" : true};
+                }
+
+                return cloudService.getCloudById($stateParams.cloudId)
+                    .then(function(result) {
+                        return result;
+                    });
+            }]
+        }
     });
 }
