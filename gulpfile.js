@@ -8,6 +8,7 @@ var cleanCSS = require('gulp-clean-css');
 var gulpCopy = require('gulp-copy');
 var ngAnnotate = require('gulp-ng-annotate');
 var htmlreplace = require('gulp-html-replace');
+var gulpNgConfig = require('gulp-ng-config');
 
 gulp.task('clean', function () {
 	return gulp.src('dist')
@@ -110,6 +111,16 @@ gulp.task('copyProject', function() {
         .pipe(gulpCopy('dist', { prefix: 0 }));
 });
 
+gulp.task('configenv', function () {
+  gulp.src('public/js/config/environmentConfig.json')
+  .pipe(gulpNgConfig('cloudapi', {
+      environment: 'env.production',
+    //   environment: 'env.development',
+      createModule: false
+  }))
+  .pipe(gulp.dest('public/js/config'))
+});
+
 gulp.task('default', function(callBack) {
-    return runSequence('clean', ['uglify', 'htmlmin', 'cssmin', 'copyFontAwesome', 'copyFontOw', 'copyResources', 'copyProject', 'htmlreplace'], callBack);
+    return runSequence('clean', ['configenv', 'uglify', 'htmlmin', 'cssmin', 'copyFontAwesome', 'copyFontOw', 'copyResources', 'copyProject', 'htmlreplace'], callBack);
 });

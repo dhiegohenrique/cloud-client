@@ -6,14 +6,6 @@ function cloudApiController($scope, $state, loadingService, loginService, localS
     var init = function() {
         $scope.login = {};
         $scope.isTokenValid = false;
-        // loadingService.openModal();
-        // userService.getUsers()
-        //     .then(function(response) {
-        //         $scope.users = response;
-        //     })
-        //     .finally(function(){
-        //         loadingService.closeModal();
-        //     });
     };
 
     $scope.submit = function(isValid) {

@@ -2,16 +2,15 @@
 
 angular.module("cloudapi").service("loginService", loginService);
 
-function loginService($http, $q) {
+function loginService($http, $q, EnvironmentConfig) {
     function validate(login) {
         var deferred = $q.defer();
 
-        var url = "https://eb-cloud-api.herokuapp.com/login";
-        var _url = "http://localhost:3000/login";
+        var url = EnvironmentConfig.urlLogin;
 
         var req = {
             method: "POST",
-            url: _url,
+            "url": url,
             data: login
         };
 

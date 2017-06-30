@@ -2,9 +2,8 @@
 
 angular.module("cloudapi").service("cloudService", cloudService);
 
-function cloudService($http, $q, localStorageService) {
-    var url = "https://eb-cloud-api.herokuapp.com/cloud";
-    url = "http://localhost:3000/cloud";
+function cloudService($http, $q, localStorageService, EnvironmentConfig) {
+    var url = EnvironmentConfig.urlCloud;
 
     function getClouds() {
         var token = localStorageService.get("token");

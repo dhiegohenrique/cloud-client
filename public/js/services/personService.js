@@ -2,9 +2,8 @@
 
 angular.module("cloudapi").service("personService", personService);
 
-function personService($http, $q, localStorageService) {
-    var url = "https://eb-cloud-api.herokuapp.com/person";
-    url = "http://localhost:3000/person";
+function personService($http, $q, localStorageService, EnvironmentConfig) {
+    var url = EnvironmentConfig.urlPerson;
 
     function insertUpdate(person) {
         var deferred = $q.defer();
@@ -17,7 +16,7 @@ function personService($http, $q, localStorageService) {
 
         var req = {
             method: (!person.id ? "POST" : "PUT"),
-            url: (!person.id ? "http://localhost:3000/person" : "http://localhost:3000/person/" + person.id),
+            "url": (!person.id ? url : (url + "/" + person.id)),
             "headers": headers,
             data: person
         };
