@@ -5,7 +5,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
 var cleanCSS = require('gulp-clean-css');
-var jsonMinify = require('gulp-json-minify');
 var gulpCopy = require('gulp-copy');
 var ngAnnotate = require('gulp-ng-annotate');
 var htmlreplace = require('gulp-html-replace');
@@ -21,11 +20,12 @@ gulp.task('uglify', function() {
         'public/vendor/bootstrap/dist/js/bootstrap.min.js',
         'public/vendor/angular/angular.min.js',
         'public/vendor/angular-ui-router/release/angular-ui-router.min.js',
-        'public/vendor/angular-translate/angular-translate.min.js',
-        'public/vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
         'public/vendor/angular-bootstrap/ui-bootstrap.min.js',
         'public/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-        'public/vendor/angular-filter/dist/angular-filter.min.js',
+        'public/vendor/angular-local-storage/dist/angular-local-storage.min.js',
+        'public/vendor/angular-confirm/dist/angular-confirm.min.js',
+        'public/vendor/angular-input-masks/angular-input-masks-standalone.min.js',
+        'public/vendor/ng-focus-if/focusIf.min.js',
         'public/js/**/*.js'
         ];
 
@@ -63,19 +63,14 @@ gulp.task('cssmin', function() {
         'public/vendor/bootstrap/dist/css/bootstrap-theme.min.css',
         'public/resources/css/style.css',
         'public/resources/css/owfont-regular.min.css',
-        'public/vendor/font-awesome/css/font-awesome.min.css'
+        'public/vendor/font-awesome/css/font-awesome.min.css',
+        'public/vendor/angular-confirm/dist/angular-confirm.min.css'
     ];
 
     return gulp.src(sources)
         .pipe(cleanCSS())
         .pipe(concat('styles.min.css'))
         .pipe(gulp.dest('dist/public/css'));
-});
-
-gulp.task('jsonMinify', function() {
-    return gulp.src('public/translations/*.json')
-        .pipe(jsonMinify())
-        .pipe(gulp.dest('dist/public/translations'));
 });
 
 gulp.task('copyFontAwesome', function() {
@@ -116,5 +111,5 @@ gulp.task('copyProject', function() {
 });
 
 gulp.task('default', function(callBack) {
-    return runSequence('clean', ['uglify', 'htmlmin', 'cssmin', 'jsonMinify', 'copyFontAwesome', 'copyFontOw', 'copyResources', 'copyProject', 'htmlreplace'], callBack);
+    return runSequence('clean', ['uglify', 'htmlmin', 'cssmin', 'copyFontAwesome', 'copyFontOw', 'copyResources', 'copyProject', 'htmlreplace'], callBack);
 });
