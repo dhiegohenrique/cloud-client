@@ -1,14 +1,13 @@
 "use strict";
 
-angular.module("cloudapi").controller("personController", ["$scope", "loadingService", "modalService", "$window", "personService", "person", personController]);
+angular.module("cloudapi").controller("personController", ["$scope", "modalService", "$window", "personService", "person", personController]);
 
-function personController($scope, loadingService, modalService, $window, personService, person) {
+function personController($scope, modalService, $window, personService, person) {
     $scope.person = {};
     $scope.hasPerson = false;
     if (person) {
         $scope.person = person;
         $scope.hasPerson = true;
-        // $state.go("cloud");
     }
 
     var personMaster = angular.copy($scope.person);
@@ -22,7 +21,6 @@ function personController($scope, loadingService, modalService, $window, personS
         }
 
         $scope.message = undefined;
-        loadingService.openModal();
         personService.insertUpdate($scope.person)
             .then(function(response) {
                 if (!$scope.person.id) {
@@ -35,9 +33,6 @@ function personController($scope, loadingService, modalService, $window, personS
             .catch(function(error) {
                 $scope.message = error.data[0];
                 $scope.classMessage = "alert-danger";
-            })
-            .finally(function() {
-                loadingService.closeModal();
             });
     };
 

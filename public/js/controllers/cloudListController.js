@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("cloudapi").controller("cloudListController", ["$scope", "$state", "$stateParams", "$rootScope", "loadingService", "modalService", "clouds", "cloudService", cloudListController]);
+angular.module("cloudapi").controller("cloudListController", ["$scope", "$state", "$stateParams", "$rootScope", "modalService", "clouds", "cloudService", cloudListController]);
 
-function cloudListController($scope, $state, $stateParams, $rootScope, loadingService, modalService, clouds, cloudService) {
+function cloudListController($scope, $state, $stateParams, $rootScope, modalService, clouds, cloudService) {
     $scope.clouds = clouds;
     var cloud = $stateParams.cloud;
     if (cloud) {
@@ -15,7 +15,7 @@ function cloudListController($scope, $state, $stateParams, $rootScope, loadingSe
     }
 
     $scope.showInstance = function(id) {
-        if ($rootScope.isCarEdit) {
+        if ($rootScope.isCloudEdit) {
             showConfirmCancelEdit(id);
             return;
         }
@@ -24,7 +24,7 @@ function cloudListController($scope, $state, $stateParams, $rootScope, loadingSe
     };
 
     $scope.clickDelete = function(id, $event) {
-        if ($rootScope.isCarEdit) {
+        if ($rootScope.isCloudEdit) {
             showConfirmCancelEdit(id, true);
         } else {
             showConfirmDeleteCloud(id);
@@ -41,7 +41,7 @@ function cloudListController($scope, $state, $stateParams, $rootScope, loadingSe
         };
 
         function callBackYes() {
-            $rootScope.isCarEdit = false;
+            $rootScope.isCloudEdit = false;
             if (isDeleting) {
                 showConfirmDeleteCloud(id);
                 return;
@@ -67,16 +67,12 @@ function cloudListController($scope, $state, $stateParams, $rootScope, loadingSe
     };
 
     function deleteCloud(id) {
-        loadingService.openModal();
         cloudService.deleteInstance(id)
             .then(function(response) {
-                $scope.isCarEdit = false;
+                $rootScope.isCloudEdit = false;
                 var index = getCloudIndex(id);
                 $scope.clouds.splice(index, 1);
                 $state.go("cloudlist");
-            })
-            .finally(function() {
-                loadingService.closeModal();
             });
     };
 

@@ -2,7 +2,7 @@
 
 angular.module("cloudapi").service("loginService", loginService);
 
-function loginService($http, $q, EnvironmentConfig) {
+function loginService($http, $q, EnvironmentConfig, loadingService) {
     function validate(login) {
         var deferred = $q.defer();
 
@@ -14,6 +14,7 @@ function loginService($http, $q, EnvironmentConfig) {
             data: login
         };
 
+        loadingService.openModal();
         $http(req)
             .then(function(response) {
                 var token = String(response.headers()["authorization"]);
@@ -27,6 +28,9 @@ function loginService($http, $q, EnvironmentConfig) {
                 deferred.resolve(result);
             }, function(error) {
                 deferred.reject(error);
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
 
         return deferred.promise;

@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("cloudapi").controller("cloudApiController", ["$scope", "$state", "loadingService", "loginService", "localStorageService", cloudApiController]);
+angular.module("cloudapi").controller("cloudApiController", ["$scope", "$state", "loginService", "localStorageService", cloudApiController]);
 
-function cloudApiController($scope, $state, loadingService, loginService, localStorageService) {
+function cloudApiController($scope, $state, loginService, localStorageService) {
     var init = function() {
         $scope.login = {};
         $scope.isTokenValid = false;
@@ -16,7 +16,6 @@ function cloudApiController($scope, $state, loadingService, loginService, localS
         }
 
         $scope.errorMessage = undefined;
-        loadingService.openModal();
         loginService.validate($scope.login)
             .then(function(response) {
                 $scope.isTokenValid = true;
@@ -26,9 +25,6 @@ function cloudApiController($scope, $state, loadingService, loginService, localS
             .catch(function(error) {
                 localStorageService.remove("token");
                 $scope.errorMessage = error.data.message;
-            })
-            .finally(function() {
-                loadingService.closeModal();
             });
     };
 

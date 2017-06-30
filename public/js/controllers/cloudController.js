@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("cloudapi").controller("cloudController", ["$scope", "$state", "$rootScope", "$stateParams", "cloudService", "$q", "loadingService", "cloud", "modalService", cloudController]);
+angular.module("cloudapi").controller("cloudController", ["$scope", "$state", "$rootScope", "cloudService", "cloud", "modalService", cloudController]);
 
-function cloudController($scope, $state, $rootScope, $stateParams, cloudService, $q, loadingService, cloud, modalService) {
+function cloudController($scope, $state, $rootScope, cloudService, cloud, modalService) {
     $scope.cloud = cloud;
     var cloudMaster = angular.copy($scope.cloud);
     $scope.title = "Nova instância";
@@ -16,29 +16,23 @@ function cloudController($scope, $state, $rootScope, $stateParams, cloudService,
             return;
         }
 
-        console.log("salvando: " + JSON.stringify());
-
-        loadingService.openModal();
         cloudService.insertUpdate($scope.cloud)
             .then(function(response) {
-                $rootScope.isCarEdit = false;
+                $rootScope.isCloudEdit = false;
                 if (!$scope.cloud.id) {
                     $scope.cloud.id = response.id;
                 }
 
                 $state.go("cloudlist", {"cloud" : $scope.cloud});
-            })
-            .finally(function() {
-                loadingService.closeModal();
             });
     };
 
     $scope.onBlur = function() {
-        $rootScope.isCarEdit = !angular.equals(cloudMaster, $scope.cloud);
+        $rootScope.isCloudEdit = !angular.equals(cloudMaster, $scope.cloud);
     };
 
     $scope.cancel = function() {
-        if ($rootScope.isCarEdit) {
+        if ($rootScope.isCloudEdit) {
             showConfirmCancelEdit();
             return;
         }
@@ -53,7 +47,7 @@ function cloudController($scope, $state, $rootScope, $stateParams, cloudService,
         };
 
         function callBackYes() {
-            $rootScope.isCarEdit = false;
+            $rootScope.isCloudEdit = false;
             $state.go("cloudlist");
         };
 

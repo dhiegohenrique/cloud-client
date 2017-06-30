@@ -2,7 +2,7 @@
 
 angular.module("cloudapi").service("personService", personService);
 
-function personService($http, $q, localStorageService, EnvironmentConfig) {
+function personService($http, $q, localStorageService, EnvironmentConfig, loadingService) {
     var url = EnvironmentConfig.urlPerson;
 
     function insertUpdate(person) {
@@ -21,11 +21,15 @@ function personService($http, $q, localStorageService, EnvironmentConfig) {
             data: person
         };
 
+        loadingService.openModal();
         $http(req)
             .then(function(response) {
                 deferred.resolve(response.data);
             }, function(error) {
                 deferred.reject(error);
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
 
         return deferred.promise;
@@ -41,11 +45,15 @@ function personService($http, $q, localStorageService, EnvironmentConfig) {
             }
         };
 
+        loadingService.openModal();
         $http.get(url + "/" + id, config)
             .then(function(response) {
                 deferred.resolve(response.data);
             }, function(error) {
                 deferred.reject(error);
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
 
         return deferred.promise;

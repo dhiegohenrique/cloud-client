@@ -2,7 +2,7 @@
 
 angular.module("cloudapi").service("cloudService", cloudService);
 
-function cloudService($http, $q, localStorageService, EnvironmentConfig) {
+function cloudService($http, $q, localStorageService, EnvironmentConfig, loadingService) {
     var url = EnvironmentConfig.urlCloud;
 
     function getClouds() {
@@ -15,11 +15,15 @@ function cloudService($http, $q, localStorageService, EnvironmentConfig) {
             }
         };
 
+        loadingService.openModal();
         $http.get(url, config)
             .then(function(response) {
                 deferred.resolve(response.data);
             }, function(error) {
                 deferred.reject(error);
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
 
         return deferred.promise;
@@ -35,11 +39,15 @@ function cloudService($http, $q, localStorageService, EnvironmentConfig) {
             }
         };
 
+        loadingService.openModal();
         $http.get(url + "/" + id, config)
             .then(function(response) {
                 deferred.resolve(response.data);
             }, function(error) {
                 deferred.reject(error);
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
 
         return deferred.promise;
@@ -55,11 +63,15 @@ function cloudService($http, $q, localStorageService, EnvironmentConfig) {
             }
         };
 
+        loadingService.openModal();
         $http.delete(url + "/" + id, config)
             .then(function(response) {
                 deferred.resolve(response.data);
             }, function(error) {
                 deferred.reject(error);
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
 
         return deferred.promise;
@@ -78,6 +90,7 @@ function cloudService($http, $q, localStorageService, EnvironmentConfig) {
             data: cloud
         };
 
+        loadingService.openModal();
         $http(req)
             .then(function(response) {
                 var location = String(response.headers()["location"]);
@@ -89,6 +102,9 @@ function cloudService($http, $q, localStorageService, EnvironmentConfig) {
                 deferred.resolve(result);
             }, function(error) {
                 deferred.reject(error);
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
 
         return deferred.promise;
