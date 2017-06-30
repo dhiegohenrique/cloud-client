@@ -39,14 +39,6 @@
                         <span>Insira o username.</span>
                     </div>
 
-                    <!--<div ng-show="isTokenValid">
-                    <label>Nome:</label> 
-                    <input type="text"
-                        class="form-control" placeholder="Insira o nome"
-                        ng-model="login.password" required name="password" id="password"
-                        ng-class="{ 'has-error' : loginForm.password.$invalid && submitted}">
-                    </div>-->
-
                     <label>Senha:</label> 
                     <input type="password"
                         class="form-control" placeholder="Insira a senha"
@@ -67,7 +59,7 @@
                         {{!isTokenValid ? "Login" : "Logoff"}}
                     </button>
                     <button type="button" class="btn btn-primary pull-right btn-space" ng-click="newPerson()" ng-show="!isTokenValid">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         Cadastrar
                     </button>
                 </form>
@@ -76,10 +68,6 @@
     </div>
 
     <br/><br/>
-
-    <!--<div ng-include="'partials/personForm.html'"></div>-->
-
-    <!--<ui-view></ui-view>-->
 
     <!-- build:js -->
     <script src="vendor/jquery/dist/jquery.min.js"></script>

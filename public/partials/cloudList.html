@@ -1,7 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 rounded shadow-3" style="background: url('resources/bg8.png'); padding-top: 20px;">
-            <button class="btn btn-primary pull-right" type="button" style="margin-top: 0px" ng-click="showInstance()">Nova</button>
+            <button class="btn btn-primary pull-right" type="button" style="margin-top: 0px" ng-click="showInstance()">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                Nova
+            </button>
         
             <br/><br/>
             
@@ -23,6 +26,6 @@
             </div>
         </div>
 
-        <div ui-view></div>
+        <div ui-view autoscroll="true"></div>
     </div>
 </div>

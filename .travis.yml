@@ -20,3 +20,4 @@ deploy:
   app: cloud-client
   on:
     repo: dhiegohenrique/cloud-client
+  skip_cleanup: true
